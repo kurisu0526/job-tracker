@@ -1,0 +1,163 @@
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: #8b949e;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #30363d;
+  }
+}
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  color: #8b949e !important;
+  margin-top: 4px;
+  flex-shrink: 0;
+
+  &:hover { color: #e6edf3 !important; }
+}
+
+.header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.job-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0 0 4px;
+}
+
+.job-company {
+  font-size: 1rem;
+  color: #8b949e;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.status-select {
+  width: 140px;
+
+  ::ng-deep .mat-mdc-select-trigger {
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 6px 12px;
+    background: #161b22;
+    color: #e6edf3;
+  }
+}
+
+.delete-btn {
+  color: #8b949e !important;
+
+  &:hover { color: #f85149 !important; }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+mat-card {
+  background: #161b22 !important;
+  border: 1px solid #21262d !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+
+  mat-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e6edf3;
+  }
+
+  mat-card-content {
+    padding-top: 8px;
+  }
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+
+  mat-icon {
+    color: #4f8ef7;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+mat-divider {
+  border-color: #21262d;
+}
+
+.info-label {
+  font-size: 0.72rem;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  color: #e6edf3;
+}
+
+.info-link {
+  font-size: 0.9rem;
+  color: #4f8ef7;
+  text-decoration: none;
+  word-break: break-all;
+
+  &:hover { text-decoration: underline; }
+}
+
+.notes-text {
+  font-size: 0.9rem;
+  color: #c9d1d9;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  margin: 0;
+}

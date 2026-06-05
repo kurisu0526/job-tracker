@@ -1,0 +1,52 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <div class="sidenav-brand">
+      <mat-icon>work_history</mat-icon>
+      <span>JobTracker</span>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/dashboard/jobs" routerLinkActive="active-link"
+         (click)="isSmallScreen && sidenav.close()">
+        <mat-icon matListItemIcon>work_outline</mat-icon>
+        <span matListItemTitle>Jobs</span>
+      </a>
+      <a mat-list-item routerLink="/dashboard/jobs/add" routerLinkActive="active-link"
+         (click)="isSmallScreen && sidenav.close()">
+        <mat-icon matListItemIcon>add_circle_outline</mat-icon>
+        <span matListItemTitle>Add Job</span>
+      </a>
+    </mat-nav-list>
+
+    <div class="sidenav-spacer"></div>
+
+    <mat-divider />
+
+    @if (currentUser$ | async; as user) {
+      <div class="sidenav-user">
+        <div class="user-avatar">{{ user.name.charAt(0).toUpperCase() }}</div>
+        <div class="user-info">
+          <span class="user-name">{{ user.name }}</span>
+          <span class="user-email">{{ user.email }}</span>
+        </div>
+        <button mat-icon-button (click)="logout()" matTooltip="Logout" class="logout-btn">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    }
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content">
+    <mat-toolbar class="toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-btn">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-spacer"></span>
+    </mat-toolbar>
+
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

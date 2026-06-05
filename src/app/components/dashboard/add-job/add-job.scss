@@ -1,0 +1,98 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.back-btn {
+  color: #8b949e !important;
+  flex-shrink: 0;
+
+  &:hover { color: #e6edf3 !important; }
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0;
+}
+
+.form-card {
+  background: #161b22 !important;
+  border: 1px solid #21262d !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  max-width: 760px;
+}
+
+.job-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(248, 81, 73, 0.1);
+  border: 1px solid rgba(248, 81, 73, 0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  color: #f85149;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cancel-btn {
+  color: #8b949e !important;
+  border-color: #30363d !important;
+  border-radius: 8px !important;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #4f8ef7, #6366f1) !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 8px !important;
+  padding: 0 24px;
+  box-shadow: 0 4px 16px rgba(79, 142, 247, 0.35) !important;
+
+  &:disabled {
+    opacity: 0.5;
+    box-shadow: none !important;
+  }
+}

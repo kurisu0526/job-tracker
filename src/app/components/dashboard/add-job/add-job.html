@@ -1,0 +1,98 @@
+<div class="page-header">
+  <a mat-icon-button routerLink="/dashboard/jobs" class="back-btn" matTooltip="Back">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <h1 class="page-title">Add Job Application</h1>
+</div>
+
+<mat-card class="form-card">
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="job-form">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="mat-form-pad-top-10px">
+          <mat-label>Company</mat-label>
+          <input matInput formControlName="company" />
+          <mat-icon matPrefix>business</mat-icon>
+          @if (form.get('company')?.hasError('required') && form.get('company')?.touched) {
+            <mat-error>Company is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="mat-form-pad-top-10px">
+          <mat-label>Position / Role</mat-label>
+          <input matInput formControlName="position" />
+          <mat-icon matPrefix>work_outline</mat-icon>
+          @if (form.get('position')?.hasError('required') && form.get('position')?.touched) {
+            <mat-error>Position is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="mat-form-pad-top-10px">
+          <mat-label>Location</mat-label>
+          <input matInput formControlName="location" placeholder="Remote, City, etc." />
+          <mat-icon matPrefix>place</mat-icon>
+          @if (form.get('location')?.hasError('required') && form.get('location')?.touched) {
+            <mat-error>Location is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="mat-form-pad-top-10px">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            @for (opt of statusOptions; track opt.value) {
+              <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="mat-form-pad-top-10px">
+          <mat-label>Applied Date</mat-label>
+          <input matInput formControlName="appliedDate" [matDatepicker]="picker" />
+          <mat-icon matPrefix>event</mat-icon>
+          <mat-datepicker-toggle matSuffix [for]="picker" />
+          <mat-datepicker #picker />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="mat-form-pad-top-10px">
+          <mat-label>Salary (optional)</mat-label>
+          <input matInput formControlName="salary" placeholder="e.g. $80,000 – $100,000" />
+          <mat-icon matPrefix>payments</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Job URL (optional)</mat-label>
+        <input matInput formControlName="url" type="url" placeholder="https://..." />
+        <mat-icon matPrefix>link</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Notes (optional)</mat-label>
+        <textarea matInput formControlName="notes" rows="4" placeholder="Recruiter name, interview tips, etc."></textarea>
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <div class="error-banner">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+      }
+
+      <div class="form-actions">
+        <a mat-stroked-button routerLink="/dashboard/jobs" class="cancel-btn">Cancel</a>
+        <button mat-raised-button class="submit-btn" type="submit" [disabled]="loading || form.invalid">
+          @if (loading) {
+            <mat-spinner diameter="20" />
+          } @else {
+            Save Application
+          }
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+

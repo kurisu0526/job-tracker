@@ -1,0 +1,86 @@
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$violet-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: dark;
+  background-color: #0d1117;
+  color: #e6edf3;
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}
+
+// Global overrides for Material on dark background
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: #30363d;
+  --mdc-outlined-text-field-hover-outline-color: #484f58;
+  --mdc-outlined-text-field-focus-outline-color: #4f8ef7;
+  --mdc-outlined-text-field-label-text-color: #8b949e;
+  --mdc-outlined-text-field-input-text-color: #e6edf3;
+  --mdc-outlined-text-field-container-color: #161b22;
+}
+
+.mat-mdc-select-value {
+  color: #e6edf3;
+}
+
+.mat-mdc-option {
+  color: #e6edf3 !important;
+}
+
+.mat-mdc-select-panel {
+  background: #161b22 !important;
+  border: 1px solid #21262d;
+}
+
+.mat-mdc-menu-panel {
+  background: #161b22 !important;
+  border: 1px solid #21262d;
+}
+
+.mat-mdc-menu-item {
+  color: #e6edf3 !important;
+}
+
+// Spinner color
+.mat-mdc-progress-spinner circle {
+  stroke: #fff !important;
+}
+
+// Scrollbar
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #30363d transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #30363d;
+  border-radius: 3px;
+}
+
+.mat-form-pad-top-10px {
+  padding-top: 10px;
+}
+

@@ -1,0 +1,92 @@
+@if (loading) {
+  <div class="spinner-wrapper">
+    <mat-spinner diameter="48" />
+  </div>
+} @else if (errorMessage) {
+  <div class="error-state">
+    <mat-icon>error_outline</mat-icon>
+    <p>{{ errorMessage }}</p>
+    <a mat-stroked-button routerLink="/dashboard/jobs">Back to Jobs</a>
+  </div>
+} @else if (job) {
+  <div class="detail-header">
+    <a mat-icon-button routerLink="/dashboard/jobs" class="back-btn" matTooltip="Back to Jobs">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div class="header-info">
+      <h1 class="job-title">{{ job.position }}</h1>
+      <p class="job-company">{{ job.company }}</p>
+    </div>
+    <div class="header-actions">
+      <mat-select
+        [(ngModel)]="job.status"
+        (ngModelChange)="updateStatus($event)"
+        class="status-select"
+      >
+        @for (s of statusOptions; track s) {
+          <mat-option [value]="s">{{ s | titlecase }}</mat-option>
+        }
+      </mat-select>
+      <button mat-icon-button (click)="deleteJob()" class="delete-btn" matTooltip="Delete job">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-row">
+          <mat-icon>place</mat-icon>
+          <div>
+            <span class="info-label">Location</span>
+            <span class="info-value">{{ job.location }}</span>
+          </div>
+        </div>
+        <mat-divider />
+        <div class="info-row">
+          <mat-icon>event</mat-icon>
+          <div>
+            <span class="info-label">Applied Date</span>
+            <span class="info-value">{{ job.appliedDate | date: 'longDate' }}</span>
+          </div>
+        </div>
+        @if (job.salary) {
+          <mat-divider />
+          <div class="info-row">
+            <mat-icon>payments</mat-icon>
+            <div>
+              <span class="info-label">Salary</span>
+              <span class="info-value">{{ job.salary }}</span>
+            </div>
+          </div>
+        }
+        @if (job.url) {
+          <mat-divider />
+          <div class="info-row">
+            <mat-icon>link</mat-icon>
+            <div>
+              <span class="info-label">Job URL</span>
+              <a [href]="job.url" target="_blank" rel="noopener" class="info-link">{{ job.url }}</a>
+            </div>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    @if (job.notes) {
+      <mat-card class="notes-card">
+        <mat-card-header>
+          <mat-card-title>Notes</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="notes-text">{{ job.notes }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+}
+

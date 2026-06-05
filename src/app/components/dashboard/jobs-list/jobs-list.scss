@@ -1,0 +1,172 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0;
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #4f8ef7, #6366f1) !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 8px !important;
+}
+
+.filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  .search-field {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .status-field {
+    width: 180px;
+  }
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.error-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: #8b949e;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #30363d;
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #21262d;
+  background: #161b22;
+}
+
+.jobs-table {
+  width: 100%;
+  background: transparent;
+
+  th.mat-header-cell {
+    color: #8b949e;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom-color: #21262d;
+    background: #161b22;
+  }
+
+  td.mat-cell {
+    color: #e6edf3;
+    border-bottom-color: #21262d;
+    font-size: 0.9rem;
+  }
+
+  .job-row:hover td {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.company-name {
+  font-weight: 600;
+  color: #e6edf3;
+}
+
+.location-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #8b949e;
+  font-size: 0.88rem;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Status badges
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+
+  &.status-saved {
+    background: rgba(139, 148, 158, 0.15);
+    color: #8b949e;
+    border: 1px solid rgba(139, 148, 158, 0.25);
+  }
+
+  &.status-applied {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  &.status-interview {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  &.status-offer {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  &.status-rejected {
+    background: rgba(248, 81, 73, 0.12);
+    color: #f85149;
+    border: 1px solid rgba(248, 81, 73, 0.25);
+  }
+}
+
+.actions-cell {
+  white-space: nowrap;
+
+  button, a {
+    color: #8b949e !important;
+
+    &:hover {
+      color: #e6edf3 !important;
+    }
+  }
+
+  .delete-btn:hover {
+    color: #f85149 !important;
+  }
+}
