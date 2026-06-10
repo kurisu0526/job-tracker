@@ -11,7 +11,7 @@ export class JobService {
   constructor(private http: HttpClient) {}
 
   scrapeJob(url: string, source: string): Observable<CreateJobDto> {
-    return this.http.post<CreateJobDto>(`api/jobs/scrape`, { url, source });
+    return this.http.post<CreateJobDto>(`${this.baseUrl}api/jobs/scrape`, { url, source });
   }
 
   getJobs(options?: {
@@ -44,15 +44,15 @@ export class JobService {
 // };
 //     return of(jobResponse).pipe(delay(1000));
     
-    return this.http.get<JobListResponse>('api/jobs/list', { params: { ...options } });
+    return this.http.get<JobListResponse>('${this.baseUrl}api/jobs/list', { params: { ...options } });
   }
 
   getJob(id: string): Observable<Job> {
-    return this.http.get<Job>(`api/jobs/job/${id}`);
+    return this.http.get<Job>(`${this.baseUrl}api/jobs/job/${id}`);
   }
 
   createJob(dto: CreateJobDto): Observable<Job> {
-    return this.http.post<Job>(`api/jobs/add`, dto);
+    return this.http.post<Job>(`${this.baseUrl}api/jobs/add`, dto);
   }
 
   updateJob(id: string, dto: Partial<CreateJobDto>): Observable<UpdateJobResponse> {
@@ -80,11 +80,11 @@ export class JobService {
 //     "message": null
 // };
 //     return of(jobResponse).pipe(delay(1000));
-    return this.http.patch<UpdateJobResponse>(`api/jobs/update/${id}`, dto);
+    return this.http.patch<UpdateJobResponse>(`${this.baseUrl}api/jobs/update/${id}`, dto);
   }
 
   deleteJob(id: string): Observable<void> {
-    return this.http.delete<void>(`api/jobs/delete/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}api/jobs/delete/${id}`);
   }
 }
 

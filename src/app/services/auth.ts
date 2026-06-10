@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   login(dto: LoginDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`api/auth/login`, dto).pipe(
+    return this.http.post<AuthResponse>(`${this.baseUrl}api/auth/login`, dto).pipe(
       tap((res) => this.storeSession(res)),
       catchError((err) => {
         const message =
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   register(dto: RegisterDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>('api/auth/signup', dto).pipe(
+    return this.http.post<AuthResponse>('${this.baseUrl}api/auth/signup', dto).pipe(
     tap((res) => this.storeSession(res)),
     catchError((err) => {
       const message =
