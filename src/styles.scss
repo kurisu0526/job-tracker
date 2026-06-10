@@ -1,5 +1,10 @@
 @use '@angular/material' as mat;
 
+:root {
+  /* Set token overrides if supported natively by your version's M3 integration */
+  --mdc-text-field--outlined: rgba(247, 3, 3, 0.5);
+}
+
 html {
   height: 100%;
   @include mat.theme(
@@ -22,15 +27,19 @@ body {
   margin: 0;
   height: 100%;
 }
-
+.mdc-text-field--outlined {
+  background: #ffffff0e !important;
+}
 // Global overrides for Material on dark background
 .mat-mdc-form-field {
+  --mdc-text-field--outlined: red;
   --mdc-outlined-text-field-outline-color: #30363d;
   --mdc-outlined-text-field-hover-outline-color: #484f58;
   --mdc-outlined-text-field-focus-outline-color: #4f8ef7;
   --mdc-outlined-text-field-label-text-color: #8b949e;
   --mdc-outlined-text-field-input-text-color: #e6edf3;
   --mdc-outlined-text-field-container-color: #161b22;
+  --filled-container-color: red;
 }
 
 .mat-mdc-select-value {
@@ -84,3 +93,39 @@ body {
   padding-top: 10px;
 }
 
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.snackbar-success {
+  --mat-sys-inverse-surface: #8de4a7;   
+  --mat-sys-inverse-on-surface: #131313;   
+  --mat-sys-inverse-primary: #1a1d1b;         
+}
+
+/* Error Snackbar */
+.snackbar-error {
+  --mdc-snackbar-container-color: #db7575;
+  --mat-sys-inverse-on-surface: #131313;   
+  --mat-sys-inverse-primary: #1a1d1b;  
+}
+
+/* Warning/Info Snackbar */
+.snackbar-info {
+  --mdc-snackbar-container-color: #6fb3d8;
+  --mat-sys-inverse-on-surface: #131313;   
+  --mat-sys-inverse-primary: #1a1d1b;  
+}
+
+.custom-reset-btn {
+  // Use tokens mapped specifically to your button presentation type (e.g., filled)
+  @include mat.button-overrides((
+    filled-container-color: #f36060,
+    filled-label-text-color: #ffffff   
+  ));
+}
+
+.not-specified {
+  color: #a6a6a8;
+  font-style: italic;
+}

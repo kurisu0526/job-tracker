@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
-import { Job, JobStatus } from '../../../models/job.model';
+import { Job, JobListResponse, JobStatus } from '../../../models/job.model';
 import { JobService } from '../../../services/job';
 
 @Component({
@@ -41,12 +41,12 @@ export class JobsListComponent implements OnInit {
 
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
-  loading = true;
-  errorMessage = '';
+  loading = signal(false);
+  errorMessage = signal('');
   searchQuery = '';
   statusFilter: JobStatus | '' = '';
 
-  readonly displayedColumns = ['company', 'position', 'location', 'status', 'appliedDate', 'actions'];
+  readonly displayedColumns = ['company', 'position', 'salary', 'location', 'status', 'appliedDate', 'actions'];
 
   readonly statusOptions: { value: JobStatus | ''; label: string }[] = [
     { value: '', label: 'All Statuses' },
@@ -62,16 +62,17 @@ export class JobsListComponent implements OnInit {
   }
 
   loadJobs(): void {
-    this.loading = true;
+    this.loading.set(true);
+    this.errorMessage.set('');
     this.jobService.getJobs().subscribe({
-      next: (jobs: Job[]) => {
-        this.jobs = jobs;
+      next: (response: JobListResponse) => {
+        this.jobs = response.jobs;
         this.applyFilters();
-        this.loading = false;
+        this.loading.set(false);
       },
       error: () => {
-        this.errorMessage = 'Failed to load jobs. Please try again.';
-        this.loading = false;
+        this.errorMessage.set('Failed to load jobs. Please try again.');
+        this.loading.set(false);
       },
     });
   }

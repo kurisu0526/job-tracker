@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -31,26 +31,27 @@ export class SignupComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
 
+  errorMessage = signal('');
+  loading = signal(false);
+
   form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  loading = false;
-  errorMessage = '';
   hidePassword = true;
 
   onSubmit(): void {
     if (this.form.invalid) return;
-    this.loading = true;
-    this.errorMessage = '';
+    this.loading.set(true);
+    this.errorMessage.set('');
     const { name, email, password } = this.form.getRawValue();
     this.auth.register({ name: name!, email: email!, password: password! }).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: (err) => {
-        this.errorMessage = err?.error?.message ?? 'Registration failed. Please try again.';
-        this.loading = false;
+        this.errorMessage.set(err.message);
+        this.loading.set(false);
       },
     });
   }

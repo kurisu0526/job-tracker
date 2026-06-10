@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://api.krisjonmanait.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

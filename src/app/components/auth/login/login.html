@@ -34,15 +34,15 @@
         }
       </mat-form-field>
 
-      @if (errorMessage) {
+      @if (errorMessage()) {
         <div class="error-banner">
           <mat-icon>error_outline</mat-icon>
-          <span>{{ errorMessage }}</span>
+          <span>{{ errorMessage() }}</span>
         </div>
       }
 
-      <button mat-raised-button class="submit-btn" type="submit" [disabled]="loading || form.invalid">
-        @if (loading) {
+      <button mat-raised-button class="submit-btn" type="submit" [disabled]="loading() || form.invalid">
+        @if (loading()) {
           <mat-spinner diameter="20" />
         } @else {
           Sign In

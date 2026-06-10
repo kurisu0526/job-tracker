@@ -106,6 +106,15 @@ mat-card {
   }
 }
 
+.info-link {
+  font-size: 0.9rem;
+  color: #4f8ef7;
+  text-decoration: none;
+  display: inline-block;
+
+  &:hover { text-decoration: underline; }
+}
+
 .info-row {
   display: flex;
   align-items: flex-start;
@@ -125,8 +134,19 @@ mat-card {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 0;
+  }
+
+  .info-url-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
   }
 }
+
+
 
 mat-divider {
   border-color: #21262d;
@@ -152,6 +172,22 @@ mat-divider {
   word-break: break-all;
 
   &:hover { text-decoration: underline; }
+}
+
+.info-url-row {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Or any specific width limit */
+}
+.flex-text-child {
+  /* CRITICAL: Allows the flex item to shrink smaller than its text content */
+  min-width: 0; 
+  flex: 1;
+
+  /* Standard ellipsis rules */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .notes-text {

@@ -1,11 +1,11 @@
-@if (loading) {
+@if (loading()) {
   <div class="spinner-wrapper">
     <mat-spinner diameter="48" />
   </div>
-} @else if (errorMessage) {
+} @else if (errorMessage()) {
   <div class="error-state">
     <mat-icon>error_outline</mat-icon>
-    <p>{{ errorMessage }}</p>
+    <p>{{ errorMessage() }}</p>
     <a mat-stroked-button routerLink="/dashboard/jobs">Back to Jobs</a>
   </div>
 } @else if (job) {
@@ -30,6 +30,9 @@
       <button mat-icon-button (click)="deleteJob()" class="delete-btn" matTooltip="Delete job">
         <mat-icon>delete_outline</mat-icon>
       </button>
+      <button mat-icon-button (click)="editJob()" class="edit-btn" matTooltip="Edit job">
+        <mat-icon>edit</mat-icon>
+      </button>
     </div>
   </div>
 
@@ -39,6 +42,15 @@
         <mat-card-title>Details</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        
+        <div class="info-row">
+          <mat-icon>house</mat-icon>
+          <div>
+            <span class="info-label">Company Name</span>
+            <span class="info-value">{{ job.company }}</span>
+          </div>
+        </div>
+        <mat-divider />
         <div class="info-row">
           <mat-icon>place</mat-icon>
           <div>
@@ -46,6 +58,20 @@
             <span class="info-value">{{ job.location }}</span>
           </div>
         </div>
+        <mat-divider />
+        @if (job.tags?.length) {
+          <div class="info-row">
+            <mat-icon>label</mat-icon>
+            <div>
+              <span class="info-label">Tags</span>
+              <mat-chip-set aria-label="Job Tags">
+                @for (item of job.tags; track $index) {
+                  <mat-chip>{{ item }}</mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+          </div>
+        }
         <mat-divider />
         <div class="info-row">
           <mat-icon>event</mat-icon>
@@ -70,23 +96,35 @@
             <mat-icon>link</mat-icon>
             <div>
               <span class="info-label">Job URL</span>
-              <a [href]="job.url" target="_blank" rel="noopener" class="info-link">{{ job.url }}</a>
+              <a
+                    [href]="job.url"
+                    target="_blank"
+                    rel="noopener"
+                    class="info-link"
+                    [attr.title]="job.url"
+                  >
+                    {{ job.url | truncate:100 }}
+                  </a>
+              
             </div>
           </div>
         }
       </mat-card-content>
     </mat-card>
 
-    @if (job.notes) {
-      <mat-card class="notes-card">
+    <mat-card class="notes-card">
         <mat-card-header>
           <mat-card-title>Notes</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p class="notes-text">{{ job.notes }}</p>
+          @if (job.notes) {
+            <p class="notes-text">{{ job.notes }}</p>
+          } @else {
+            <p class="not-specified">No notes yet. Add notes by editing this job application.</p>
+          }
+          
         </mat-card-content>
       </mat-card>
-    }
   </div>
 }
 

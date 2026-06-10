@@ -6,6 +6,7 @@ import { DashboardLayoutComponent } from './components/dashboard/dashboard-layou
 import { JobsListComponent } from './components/dashboard/jobs-list/jobs-list';
 import { JobDetailComponent } from './components/dashboard/job-detail/job-detail';
 import { AddJobComponent } from './components/dashboard/add-job/add-job';
+import { EditJobComponent } from './components/dashboard/edit-job/edit-job';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -26,6 +27,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'jobs', pathMatch: 'full' },
       { path: 'jobs', component: JobsListComponent },
       { path: 'jobs/add', component: AddJobComponent },
+      { path: 'jobs/:id/edit', component: EditJobComponent },
       { path: 'jobs/:id', component: JobDetailComponent },
     ],
   },

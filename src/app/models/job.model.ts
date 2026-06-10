@@ -10,7 +10,19 @@ export interface Job {
   appliedDate: string;
   notes?: string;
   url?: string;
+  tags?: string[];
   updatedAt: string;
+}
+
+
+export interface JobListResponse {
+  jobs: Job[];
+  nextPageToken?: string | null;
+}
+
+export interface UpdateJobResponse {
+  job: Job;
+  message?: string | null;
 }
 
 export interface CreateJobDto {
@@ -22,4 +34,5 @@ export interface CreateJobDto {
   appliedDate: string;
   notes?: string;
   url?: string;
+  tags?: string[];
 }

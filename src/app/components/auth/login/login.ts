@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -36,20 +36,20 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  loading = false;
-  errorMessage = '';
+  errorMessage = signal('');
+  loading = signal(false);
   hidePassword = true;
 
   onSubmit(): void {
     if (this.form.invalid) return;
-    this.loading = true;
-    this.errorMessage = '';
+    this.loading.set(true);
+    this.errorMessage.set('');
     const { email, password } = this.form.getRawValue();
     this.auth.login({ email: email!, password: password! }).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: (err) => {
-        this.errorMessage = err?.error?.message ?? 'Login failed. Please try again.';
-        this.loading = false;
+        this.errorMessage.set(err ?? 'Login failed. Please try again.');
+        this.loading.set(false);
       },
     });
   }

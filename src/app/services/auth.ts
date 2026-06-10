@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthResponse, LoginDto, RegisterDto, User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly baseUrl = `${environment.apiUrl}/auth`;
+  private readonly baseUrl = `${environment.apiUrl}`;
   private currentUserSubject = new BehaviorSubject<User | null>(this.loadUser());
   readonly currentUser$ = this.currentUserSubject.asObservable();
 
@@ -26,15 +26,29 @@ export class AuthService {
   }
 
   login(dto: LoginDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, dto).pipe(
-      tap((res) => this.storeSession(res))
+    return this.http.post<AuthResponse>(`api/auth/login`, dto).pipe(
+      tap((res) => this.storeSession(res)),
+      catchError((err) => {
+        const message =
+          err.error?.message ||
+          err.message ||
+          'Login failed';
+        return throwError(() => new Error(message));
+      })
     );
   }
 
   register(dto: RegisterDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/register`, dto).pipe(
-      tap((res) => this.storeSession(res))
-    );
+    return this.http.post<AuthResponse>('api/auth/signup', dto).pipe(
+    tap((res) => this.storeSession(res)),
+    catchError((err) => {
+      const message =
+        err.error?.message ||
+        err.message ||
+        'Registration failed';
+      return throwError(() => new Error(message));
+    })
+  );
   }
 
   logout(): void {
