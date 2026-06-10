@@ -44,7 +44,7 @@ export class JobService {
 // };
 //     return of(jobResponse).pipe(delay(1000));
     
-    return this.http.get<JobListResponse>('${this.baseUrl}api/jobs/list', { params: { ...options } });
+    return this.http.get<JobListResponse>(`${this.baseUrl}api/jobs/list`, { params: { ...options } });
   }
 
   getJob(id: string): Observable<Job> {
