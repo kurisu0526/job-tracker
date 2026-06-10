@@ -11,9 +11,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { Job, JobListResponse, JobStatus } from '../../../models/job.model';
 import { JobService } from '../../../services/job';
+import { ConfirmDialogComponent } from '../confirm-dialog.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-jobs-list',
@@ -31,6 +34,7 @@ import { JobService } from '../../../services/job';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatDialogModule
   ],
   templateUrl: './jobs-list.html',
   styleUrl: './jobs-list.scss',
@@ -38,6 +42,8 @@ import { JobService } from '../../../services/job';
 export class JobsListComponent implements OnInit {
   private jobService = inject(JobService);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
@@ -91,12 +97,30 @@ export class JobsListComponent implements OnInit {
   }
 
   deleteJob(id: string): void {
-    if (!confirm('Delete this job?')) return;
-    this.jobService.deleteJob(id).subscribe({
-      next: () => {
-        this.jobs = this.jobs.filter((j) => j.id !== id);
-        this.applyFilters();
+    if (id === null) return;
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Remove job application',
+        message: 'Are you sure you want to remove this job application?',
       },
+    });
+    
+    ref.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+      this.loading.set(true);
+      this.jobService.deleteJob(id).subscribe({
+        next: () => {
+          this.loading.set(false);
+          this.jobs = this.jobs.filter((j) => j.id !== id);
+          this.applyFilters();
+          this.snackBar.open('Job successfully removed!', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center' as MatSnackBarHorizontalPosition,
+            verticalPosition: 'top' as MatSnackBarVerticalPosition,
+            panelClass: ['snackbar-success'],
+          });
+        }
+      });
     });
   }
 

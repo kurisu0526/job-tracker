@@ -45,16 +45,29 @@ export class DashboardLayoutComponent implements OnInit {
       .observe([Breakpoints.XSmall, Breakpoints.Small, '(max-width: 768px)'])
       .subscribe((result) => {
         this.isSmallScreen = result.matches;
-        if (this.sidenav) {
-          if (this.isSmallScreen) {
-            this.sidenav.mode = 'over';
-            this.sidenav.close();
-          } else {
-            this.sidenav.mode = 'side';
-            this.sidenav.open();
-          }
-        }
+        this.updateSidenavState();
       });
+  }
+
+  ngAfterViewInit(): void {
+    // The DOM is now ready! Force an initial check to close it if small screen.
+    // Wrap in a microtask (setTimeout) to avoid ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => {
+      this.updateSidenavState();
+    });
+  }
+
+  private updateSidenavState(): void {
+    // Safe guard: check if sidenav is defined yet
+    if (!this.sidenav) return;
+
+    if (this.isSmallScreen) {
+      this.sidenav.mode = 'over';
+      this.sidenav.close();
+    } else {
+      this.sidenav.mode = 'side';
+      this.sidenav.open();
+    }
   }
 
   logout(): void {
