@@ -35,9 +35,16 @@
   </div>
 } @else if (filteredJobs.length === 0) {
   <div class="empty-state">
-    <mat-icon>inbox</mat-icon>
-    <p>No jobs found.</p>
-    <a mat-raised-button routerLink="/dashboard/jobs/add" class="add-btn">Add your first job</a>
+    @if(filtersApplied) {
+        <mat-icon>search</mat-icon>
+        <p>Search result found nothing.</p>
+    }@else {
+      
+        <mat-icon>inbox</mat-icon>
+        <p>No jobs found.</p>
+        <a mat-raised-button routerLink="/dashboard/jobs/add" class="add-btn">Add your first job</a>
+    
+    }
   </div>
 } @else {
   <div class="table-wrapper">

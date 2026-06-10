@@ -44,7 +44,8 @@ export class JobsListComponent implements OnInit {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
-
+ 
+  filtersApplied = false;
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   loading = signal(false);
@@ -85,6 +86,10 @@ export class JobsListComponent implements OnInit {
 
   applyFilters(): void {
     const q = this.searchQuery.toLowerCase();
+    this.filtersApplied = false;
+    if(q !== "" || this.statusFilter !== "") {
+      this.filtersApplied = true;
+    }
     this.filteredJobs = this.jobs.filter((j) => {
       const matchesSearch =
         !q ||
